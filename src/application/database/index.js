@@ -31,6 +31,6 @@ export default async (onConnect) => {
         onConnect();
         console.log('Database connection OK!');
     } catch (error) {
-        console.log('Unable to connect to the database:');
+        console.log('Unable to connect to the database:', error);
     }
 }
