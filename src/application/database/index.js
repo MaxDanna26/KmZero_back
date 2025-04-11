@@ -15,16 +15,10 @@ export default async (onConnect) => {
   try {
     await setAssociations(db);
     await db.authenticate();
-
-    // Sync & Migrations
-    const { MigrationTool, setMigrationsAsDone } = await createMigrationTool(
-      db
-    );
-    if (!forceSyncDatabase) await MigrationTool.up();
-
-    await db.sync({ force: forceSyncDatabase });
-    if (forceSyncDatabase) await setMigrationsAsDone();
+    await db.sync({ force: forceCleanDatabase });
+    onConnect();
+    console.log('Database connection OK!');
   } catch (error) {
-    console.log("Unable to connect to the database:", error);
+    console.log('Unable to connect to the database:', error);
   }
-};
+}
