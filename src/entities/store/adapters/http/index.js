@@ -6,14 +6,6 @@ import restrictedAccess from "@Application/middlewares/restricted-access";
 
 const router = express.Router();
 
-// router.get(
-//   "/",
-//   asyncHandler(async (req, res) => {
-//     // await Controller.create({ email: 'borrame@borrame.com' });
-//     res.send("Llegamos a user");
-//   })
-// );
-
 router.get(
   "/",
   asyncHandler(async (req, res) => {
@@ -25,11 +17,9 @@ router.get(
 router.post(
   "/",
   asyncHandler(async (req, res) => {
-    const {
-      body: { email, username, password },
-    } = req;
-    await Controller.create({ email, username, password });
-    res.send("Usuario creado con éxito!!");
+    const { body: { name, fk_location }, } = req;
+    await Controller.create({ name, fk_location });
+    res.send("Store creada con éxito!");
   })
 );
 

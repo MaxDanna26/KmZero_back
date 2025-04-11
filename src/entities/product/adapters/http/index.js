@@ -18,10 +18,10 @@ router.post(
   "/",
   asyncHandler(async (req, res) => {
     const {
-      body: { email, username, password },
+      body: { name, fk_store, fk_category },
     } = req;
-    await Controller.create({ email, username, password });
-    res.send("Usuario creado con éxito!!");
+    await Controller.create({ name, fk_store, fk_category });
+    res.send("Product creado con éxito!!");
   })
 );
 

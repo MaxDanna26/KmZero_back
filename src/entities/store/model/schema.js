@@ -24,7 +24,6 @@ const Store = db.define("store", {
 // Asociación
 // Store.belongsTo(Location, { foreignKey: "fk_location", as: "location" });
 
-
 // Store.associate = (models) => {
 //   const { Location } = models;
 

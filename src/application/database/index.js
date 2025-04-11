@@ -15,7 +15,7 @@ export default async (onConnect) => {
   try {
     await setAssociations(db);
     await db.authenticate();
-    await db.sync({ force: forceCleanDatabase });
+    await db.sync({ force: forceSyncDatabase });
     onConnect();
     console.log('Database connection OK!');
   } catch (error) {
