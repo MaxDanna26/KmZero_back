@@ -1,18 +1,13 @@
 import express from "express";
 import Controller from "../../controller";
 import { asyncHandler } from "@Application/middlewares/error-handler";
+import bcrypt from 'bcryptjs';
+
 // Para operaciones con acceso restringido, introduciremos un segundo parámetro que será la variable restrictedAccess
 import restrictedAccess from "@Application/middlewares/restricted-access";
+import { Console } from "console";
 
 const router = express.Router();
-
-// router.get(
-//   "/",
-//   asyncHandler(async (req, res) => {
-//     // await Controller.create({ email: 'borrame@borrame.com' });
-//     res.send("Llegamos a user");
-//   })
-// );
 
 router.get(
   "/",
@@ -26,11 +21,20 @@ router.post(
   "/",
   asyncHandler(async (req, res) => {
     const {
-      body: { email, username, password },
+      body: { email, userName, password },
     } = req;
-    await Controller.create({ email, username, password });
+    const saltRounds = 10; // numero de iteraciones en que se va a encriptar la password
+
+    // Encriptar la contraseña con bcrypt
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    await Controller.create({
+      email: email,
+      userName: userName,
+      password: hashedPassword,
+    });
     res.send("Usuario creado con éxito!!");
   })
 );
 
-export default (app, entityUrl) => app.use(entityUrl, router);
+export default (app, entityUrl) => app.use(entityUrl, router);  

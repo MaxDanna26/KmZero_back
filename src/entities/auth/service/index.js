@@ -1,36 +1,48 @@
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import UserModel from "../../user/model";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const AuthService = () => ({
-  async signIn(token) {
-    const credentials = decodeBase64Token(token);
-    if (!credentials || !credentials.username || !credentials.password) {
-      return res.status(400).json({ error: "Token inválido" });
-    }
+    async signIn(token) {
+        // Decodificar Base64
+        const decoded = atob(token);
+        console.log("Decodificado:", decoded); // Salida: "paco:123"
 
-    const { username, password } = credentials;
+        // Separar el usuario y la contraseña
+        const [email, password, userName] = decoded.split(":");
 
-    const users = await UserModel.get({ username, password });
+        // Buscar el usuario en la base de datos
+        const user = await UserModel.getByEmail(email);
 
-    if (users.length === 0) {
-      return res.status(401).json({ error: "Credenciais inválidas" });
-    }
+        if (!user) {
+            throw new Error("Usuario no encontrado");
+        }
 
-    const user = users[0];
-  },
+        // Comparar la contraseña ingresada con la almacenada en la BBDD
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            throw new Error("Contraseña incorrecta");
+        }
 
-  deleteUser(userProviderId) {
-    return ManagementClient.deleteUser({ id: userProviderId });
-  },
+        // Generar token JWT
+        const JWToken = jwt.sign(
+            {
+                id: user.id,
+                email: user.email,
+                userName: user.userName
+            },
+            process.env.JWT_SECRET,
+            { expiresIn: "2h" }
+        );
+        return { 'token': JWToken };
+    },
+
+    async deleteUser(userId) {
+        return UserModel.destroy({ where: { id: userId } });
+    },
 });
-
-const decodeBase64Token = (token) => {
-  try {
-    const decoded = Buffer.from(token, "base64").toString("utf-8");
-    const [username, password] = decoded.split(":");
-    return { username, password };
-  } catch (err) {
-    return null;
-  }
-};
 
 export default AuthService;

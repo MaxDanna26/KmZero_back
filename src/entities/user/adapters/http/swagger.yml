@@ -28,8 +28,8 @@ paths:
               Credentials exmaple:
                 value:
                   email: pp@pp.com
-                  username: Paco
-                  password: 123
+                  userName: Paco
+                  password: "12345"
       responses:
         200:
           description: Ok

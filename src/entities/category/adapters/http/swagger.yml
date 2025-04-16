@@ -1,9 +1,9 @@
 paths:
-  /user/:
+  /jj/:
     get:
-      summary: Get all users
+      summary: Solo se ve user y otras tonterias
       tags:
-        - Users
+        - Category
       responses:
         200:
           description: Ok
