@@ -12,7 +12,7 @@ const AuthService = () => ({
         console.log("Decodificado:", decoded); // Salida: "paco:123"
 
         // Separar el usuario y la contraseña
-        const [email, password, userName] = decoded.split(":");
+        const [email, password] = decoded.split(":");
 
         // Buscar el usuario en la base de datos
         const user = await UserModel.getByEmail(email);

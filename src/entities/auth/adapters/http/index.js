@@ -10,8 +10,8 @@ const authRouter = express.Router();
 authRouter.post(
   "/login",
   asyncHandler(async (req, res) => {
-    const { email, password, userName } = req.body;
-    const token = btoa(email + ":" + password + ":" + userName);
+    const { email, password } = req.body;
+    const token = btoa(email + ":" + password);
     const userToken = await Controller.login(token);
     res.send(userToken);
   })
