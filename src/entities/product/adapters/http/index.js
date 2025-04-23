@@ -1,9 +1,10 @@
 import express from "express";
 import Controller from "../../controller";
 import { asyncHandler } from "@Application/middlewares/error-handler";
-// Para operaciones con acceso restringido, introduciremos un segundo parámetro que será la variable restrictedAccess
 import restrictedAccess from "@Application/middlewares/restricted-access";
 import { upload } from '@Application/config/multer';
+import cloudinary from "../../../../application/config/cloudinary";
+import fs from "fs";
 
 const router = express.Router();
 
@@ -21,10 +22,28 @@ router.post(
   asyncHandler(async (req, res) => {
     const {
       body: { name, fk_store, fk_category },
-      file
+      file,
     } = req;
-    await Controller.create({ name, fk_store, fk_category, image: file?.filename, });
-    res.send("Product creado con éxito!!");
+
+    if (!file) {
+      return res.status(400).json({ error: "Falta el archivo de imagen" });
+    }
+
+    // Subir imagen a Cloudinary
+    const result = await cloudinary.uploader.upload(file.path);
+
+    // Borrar imagen temporal del servidor
+    fs.unlinkSync(file.path);
+
+    // Guardar producto en la base de datos con la URL de Cloudinary
+    await Controller.create({
+      name,
+      fk_store,
+      fk_category,
+      image: result.secure_url, // Guardamos la URL en lugar del filename
+    });
+
+    res.send("¡Producto creado con éxito!");
   })
 );
 
