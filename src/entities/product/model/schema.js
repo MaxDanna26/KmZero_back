@@ -12,6 +12,12 @@ const Product = db.define("product", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  
+  image: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+
   fk_store: {
     type: DataTypes.INTEGER,
     allowNull: false,
