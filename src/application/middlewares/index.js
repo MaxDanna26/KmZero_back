@@ -7,6 +7,8 @@ const Middlewares = (app, io) => {
     app.use(express.json());
     app.use(withSockets(io));
     app.use(cors()) // Use this after the variable declaration
+    app.use("/uploads", express.static("uploads"));
+
 };
 
 export default Middlewares;
