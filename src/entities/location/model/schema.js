@@ -13,7 +13,6 @@ const Location = db.define("location", {
 });
 
 Location.associate = ({ store }) => {
-
   if (!store) {
     throw new Error("Store model is not defined");
   }
@@ -21,27 +20,3 @@ Location.associate = ({ store }) => {
 
 };
 export default Location;
-
-
-// UserEvent.associate = (models) => {
-//   const { User, Event } = models;
-
-//   if (!User || !Event) {
-//     throw new Error("User or Event model is not defined");
-//   }
-
-//   User.belongsToMany(Event, {
-//     through: UserEvent,
-//     foreignKey: "fk_userId",
-//     onDelete: "CASCADE",
-//   });
-
-//   Event.belongsToMany(User, {
-//     through: UserEvent,
-//     foreignKey: "fk_eventId",
-//     onDelete: "CASCADE",
-//   });
-
-//   UserEvent.belongsTo(User, { foreignKey: "fk_userId" });
-//   UserEvent.belongsTo(Event, { foreignKey: "fk_eventId" });
-// };

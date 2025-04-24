@@ -21,9 +21,12 @@ router.post(
   "/",
   asyncHandler(async (req, res) => {
     const {
-      body: { email, userName, password },
-    } = req;
-    const saltRounds = 10; // numero de iteraciones en que se va a encriptar la password
+      body: { email, userName, password }, } = req;
+
+    if (!email || !userName || !password)
+      return res.status(400).json({ error: "Datos incompletos!" });
+
+    const saltRounds = Math.floor(Math.random() * (11 - 6 + 1)) + 6; // numero de iteraciones en que se va a encriptar la password
 
     // Encriptar la contraseña con bcrypt
     const hashedPassword = await bcrypt.hash(password, saltRounds);

@@ -6,7 +6,6 @@ import restrictedAccess from "@Application/middlewares/restricted-access";
 
 const authRouter = express.Router();
 
-// GET ALL
 authRouter.post(
   "/login",
   asyncHandler(async (req, res) => {

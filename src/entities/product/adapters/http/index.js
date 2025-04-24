@@ -21,9 +21,12 @@ router.post(
   upload.single("file"),
   asyncHandler(async (req, res) => {
     const {
-      body: { name, fk_store, fk_category },
+      body: { name, fk_store, fk_category, price, description },
       file,
     } = req;
+
+    if (!name || !fk_store || !fk_category || !price || !description)
+      return res.status(400).json({ error: "Datos incompletos!" });
 
     if (!file) {
       return res.status(400).json({ error: "Falta el archivo de imagen" });
@@ -40,6 +43,8 @@ router.post(
       name,
       fk_store,
       fk_category,
+      price,
+      description,
       image: result.secure_url, // Guardamos la URL en lugar del filename
     });
 

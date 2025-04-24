@@ -18,6 +18,9 @@ router.post(
   "/",
   asyncHandler(async (req, res) => {
     const { body: { name, fk_location }, } = req;
+    if (!name || !fk_location)
+      return res.status(400).json({ error: "Datos incompletos!" });
+
     await Controller.create({ name, fk_location });
     res.send("Store creada con éxito!");
   })

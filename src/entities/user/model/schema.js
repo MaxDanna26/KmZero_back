@@ -1,5 +1,4 @@
 import { db, DataTypes } from "@Application/database";
-// import User_Event from "entities/userevent/model/schema";
 
 const User = db.define("user", {
   id: {
@@ -32,14 +31,6 @@ const User = db.define("user", {
   timestamps: true,
   tableName: "users",
 });
-
-// User.belongsToMany(Event, { through: 'userevents', foreignKey: "fk_idUser", onDelete: "CASCADE" });
-
-// User.associate = ({ event }) => {
-//   User.belongsToMany(event, { through: 'userevents', onDelete: 'cascade' });
-// };
-
-// User.belongsToMany(Event, { through: UserEvent, foreignKey: "fk_idUser", onDelete: "CASCADE" });
 
 
 export default User;

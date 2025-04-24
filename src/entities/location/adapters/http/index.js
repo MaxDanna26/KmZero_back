@@ -18,6 +18,9 @@ router.post(
   "/",
   asyncHandler(async (req, res) => {
     const { body: { name }, } = req;
+    if (!name)
+      return res.status(400).json({ error: "Datos incompletos!" })
+
     await Controller.create({ name });
     res.send("Location creado con éxito!");
   })
