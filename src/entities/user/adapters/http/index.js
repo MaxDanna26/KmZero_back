@@ -21,9 +21,9 @@ router.post(
   "/",
   asyncHandler(async (req, res) => {
     const {
-      body: { email, userName, password }, } = req;
+      body: { email, userName, password, fk_rol }, } = req;
 
-    if (!email || !userName || !password)
+    if (!email || !userName || !password || !fk_rol)
       return res.status(400).json({ error: "Datos incompletos!" });
 
     const saltRounds = Math.floor(Math.random() * (11 - 6 + 1)) + 6; // numero de iteraciones en que se va a encriptar la password
@@ -35,6 +35,7 @@ router.post(
       email: email,
       userName: userName,
       password: hashedPassword,
+      fk_rol: fk_rol
     });
     res.send("Usuario creado con éxito!!");
   })
