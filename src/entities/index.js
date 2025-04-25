@@ -5,6 +5,7 @@ import productRoutes from "./product/adapters/http";
 import storeRoutes from "./store/adapters/http";
 import userRoutes from "./user/adapters/http"
 import authRoutes from "./auth/adapters/http"
+import rolRoutes from "./rol/adapters/http"
 
 export const Routes = (app) => {
   categoryRoutes(app, "/category");
@@ -12,6 +13,7 @@ export const Routes = (app) => {
   productRoutes(app, "/product");
   storeRoutes(app, "/store");
   userRoutes(app, "/user");
-  authRoutes(app, "/auth")
+  authRoutes(app, "/auth");
+  rolRoutes(app, "/rol");
 };
 

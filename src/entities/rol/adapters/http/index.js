@@ -17,12 +17,12 @@ router.get(
 router.post(
   "/",
   asyncHandler(async (req, res) => {
-    const { body: { name, fk_location }, } = req;
-    if (!name || !fk_location)
+    const { body: { name }, } = req;
+    if (!name)
       return res.status(400).json({ error: "Datos incompletos!" });
 
-    await Controller.create({ name, fk_location });
-    res.send("Store creada con éxito!");
+    await Controller.create({ name });
+    res.send("Rol creado con éxito!");
   })
 );
 
