@@ -1,16 +1,204 @@
 paths:
-  /jj/:
+  /auth/:
+    post:
+      summary: Create auth entry
+      tags:
+        - Auth
+      requestBody:
+        description: Auth data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+            examples:
+              Auth example:
+                value:
+                  email: max@hotmail.com
+                  password: 123456
+      responses:
+        200:
+          description: Ok
+
+  /category/:
     get:
-      summary: Solo se ve user y otras tonterias
+      summary: Get all categories
       tags:
         - Category
       responses:
         200:
           description: Ok
     post:
-      summary: Create
+      summary: Create category
       tags:
-        - Users
+        - Category
+      requestBody:
+        description: Category data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+            examples:
+              Category example:
+                value:
+                  name: Pollo
+      responses:
+        200:
+          description: Ok
+
+  /location/:
+    get:
+      summary: Get all locations
+      tags:
+        - Location
+      responses:
+        200:
+          description: Ok
+    post:
+      summary: Create location
+      tags:
+        - Location
+      requestBody:
+        description: Location data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+            examples:
+              Location example:
+                value:
+                  name: Barcelona
+      responses:
+        200:
+          description: Ok
+
+  /product/:
+    get:
+      summary: Get all products
+      tags:
+        - Product
+      responses:
+        200:
+          description: Ok
+    post:
+      summary: Create product
+      tags:
+        - Product
+      requestBody:
+        description: Product data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                fk_store:
+                  type: integer
+                fk_category: 
+                  type: integer
+                price:
+                  type: number
+                description:
+                  type: string
+                file: 
+                  type: string
+                  format: binary
+            examples:
+              Product example:
+                value:
+                  name: Pollo Ramirez
+                  fk_store: 1
+                  fk_category: 1
+                  price: 29.99
+                  file: 
+      responses:
+        200:
+          description: Ok
+
+  /rol/:
+    get:
+      summary: Get all roles
+      tags:
+        - Rol
+      responses:
+        200:
+          description: Ok
+    post:
+      summary: Create rol
+      tags:
+        - Rol
+      requestBody:
+        description: Role data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+            examples:
+              Role example:
+                value:
+                  name: Admin
+      responses:
+        200:
+          description: Ok
+
+  /store/:
+    get:
+      summary: Get all stores
+      tags:
+        - Store
+      responses:
+        200:
+          description: Ok
+    post:
+      summary: Create store
+      tags:
+        - Store
+      requestBody:
+        description: Store data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                fk_location:
+                  type: integer
+            examples:
+              Store example:
+                value:
+                  name: Granja Barcelona
+                  location_id: 1
+      responses:
+        200:
+          description: Ok
+
+  /user/:
+    get:
+      summary: Get all users
+      tags:
+        - User
+      responses:
+        200:
+          description: Ok
+    post:
+      summary: Create user
+      tags:
+        - User
       requestBody:
         description: User data
         content:
@@ -20,74 +208,19 @@ paths:
               properties:
                 email:
                   type: string
-                username:
+                userName:
                   type: string
                 password:
                   type: string
+                fk_rol:
+                  type: integer
             examples:
-              Credentials exmaple:
+              User example:
                 value:
-                  email: pp@pp.com
-                  username: Paco
-                  password: 123
+                  email: max@hotmail.com
+                  userName: Max
+                  password: 123456
+                  fk_rol: 1
       responses:
         200:
           description: Ok
-  /user/{id}:
-    delete:
-      summary: Delete user by id
-      tags:
-        - Users
-      parameters:
-        - name: id
-          in: path
-          required: true
-      responses:
-        200:
-          description: Ok
-    get:
-      summary: Get user by id
-      tags:
-        - Users
-      parameters:
-        - name: id
-          in: path
-          required: true
-          example: 1 
-      responses:
-        200:
-          description: Ok
-    put:
-      summary: Update user by id
-      tags:
-        - Users
-      parameters:
-        - name: id
-          in: path
-          required: true
-          example: 1
-      requestBody:
-        description: User data
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                user:
-                  type: object
-                  properties:
-                    email:
-                      type: string
-                    username:
-                      type: string
-                    password:
-                      type: string
-            examples:
-              Credentials exmaple:
-                value:
-                  email: aa@aa.com
-                  username: Paco
-                  password: 456
-      responses:
-        200:
-          description: Ok   
