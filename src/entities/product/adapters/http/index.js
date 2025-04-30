@@ -5,6 +5,7 @@ import restrictedAccess from "@Application/middlewares/restricted-access";
 import { upload } from '@Application/config/multer';
 import cloudinary from "../../../../application/config/cloudinary";
 import fs from "fs";
+import Product from "entities/product/model/schema";
 
 const router = express.Router();
 
@@ -27,6 +28,20 @@ router.get(
     res.send(data);
   })
 );
+
+router.get(
+  "/ProductByCategory/:CategoryId",
+  asyncHandler(async (req, res) => {
+    const { CategoryId } = req.params;
+    console.log(CategoryId)
+    const data = await Controller.get({ fk_category: CategoryId });
+    if (!data) {
+      return res.status(404).json({ error: "Producto no encontrado" });
+    }
+    res.send(data);
+  })
+);
+
 
 
 router.post(
