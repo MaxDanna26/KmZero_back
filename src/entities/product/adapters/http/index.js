@@ -16,6 +16,19 @@ router.get(
   })
 );
 
+router.get(
+  "/:id",
+  asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const data = await Controller.getById(id);
+    if (!data) {
+      return res.status(404).json({ error: "Producto no encontrado" });
+    }
+    res.send(data);
+  })
+);
+
+
 router.post(
   "/",
   upload.single("file"),

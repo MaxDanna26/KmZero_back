@@ -20,7 +20,7 @@ router.post('/checkout-session', async (req, res) => {
         },
         quantity: item.quantity,
       })),
-      success_url: 'http://localhost:3000/success',
+      success_url: 'http://localhost:5173/',
       cancel_url: 'http://localhost:3000/cancel',
     });
 

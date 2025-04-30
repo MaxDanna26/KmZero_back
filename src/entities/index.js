@@ -14,6 +14,8 @@ export const Routes = (app) => {
   productRoutes(app, "/product");
   storeRoutes(app, "/store");
   userRoutes(app, "/user");
-  authRoutes(app, "/auth")
+  authRoutes(app, "/auth");
+  paymentRoutes(app, "/payment");
+  rolRoutes(app, "/rol");
 };
 
