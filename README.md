@@ -33,7 +33,7 @@ Para subir una imagen al crear un producto, debes usar una solicitud `multipart/
 - `category_id` (integer)
 - `image` (file – formato `.png`, `.jpg`, etc.)
 
-## .ENV 
+## 🌐 .ENV 
 
 1. Crearemos el fichero .env a partir del fichero .env.example
 2. En el fichero /entitis/user/adapters/http/index.js pondremos las rutas a las que accederemos. Tienes ejemplos de muchas peticiones en /entities/user/index.js
